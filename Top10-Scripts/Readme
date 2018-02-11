@@ -7,6 +7,6 @@ Glove Dataset - glove.840B.300d.zip: https://nlp.stanford.edu/projects/glove/
 Fasttext Dataset - crawl-300d-2M.vec.zip: https://fasttext.cc/docs/en/english-vectors.html
 
 Next steps:
-1. using larger Glove and Fasttext datasets will have a significant imporvement for the models
-2. Fine-tuning the hyperparameters of each models
-3. Trying Random forest or CNN models
+1. using larger Glove and Fasttext datasets will have a significant imporvement
+2. Fine-tuning the hyperparameters for each models
+3. Trying Random Forest or CNN
