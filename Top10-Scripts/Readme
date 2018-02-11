@@ -12,6 +12,7 @@ Next steps:
    https://www.kaggle.com/mschumacher/using-fasttext-models-for-robust-embeddings
 2. Fine-tuning the hyperparameters for each models
 3. Trying Random Forest, CNN - it seems that CNN doesn't suit this task well
-   or napture model - https://github.com/neptune-ml/kaggle-toxic-starter
-                    - https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge/discussion/48836
+   or napture model 
+   - https://github.com/neptune-ml/kaggle-toxic-starter
+   - https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge/discussion/48836
 4. testing different weighting for esemble or boosting
