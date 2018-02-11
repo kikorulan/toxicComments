@@ -11,5 +11,6 @@ Next steps:
 1. using larger Glove and Fasttext datasets will have a significant imporvement
    https://www.kaggle.com/mschumacher/using-fasttext-models-for-robust-embeddings
 2. Fine-tuning the hyperparameters for each models
-3. Trying Random Forest or CNN - it seems that CNN doesn't suit this task well
+3. Trying Random Forest, CNN - it seems that CNN doesn't suit this task well
+   or napture model - https://github.com/neptune-ml/kaggle-toxic-starter
 4. testing different weighting for esemble or boosting
