@@ -7,12 +7,12 @@ Glove Dataset - glove.840B.300d.zip: https://nlp.stanford.edu/projects/glove/
 Fasttext Dataset - crawl-300d-2M.vec.zip: https://fasttext.cc/docs/en/english-vectors.html
 
 Next steps:
-1. Better data cleaning
-1. using larger Glove and Fasttext datasets will have a significant imporvement
+1. Preprocessing - data cleaning 
+2. Using larger Glove and Fasttext datasets will have a significant imporvement
    https://www.kaggle.com/mschumacher/using-fasttext-models-for-robust-embeddings
-2. Fine-tuning the hyperparameters for each models
-3. Trying Random Forest, CNN - it seems that CNN doesn't suit this task well
+3. Fine-tuning the hyperparameters for each models
+4. Trying Random Forest, CNN - it seems that CNN doesn't suit this task well
    or napture model 
    - https://github.com/neptune-ml/kaggle-toxic-starter
    - https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge/discussion/48836
-4. testing different weighting for esemble or boosting
+5. Testing different weighting for esemble or boosting
