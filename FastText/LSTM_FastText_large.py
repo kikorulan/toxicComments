@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 #============================================
 #    IMPORT MODULES
 #============================================
@@ -17,11 +17,12 @@ from keras.callbacks import EarlyStopping
 from keras.preprocessing.text import Tokenizer
 from keras.layers import Dense, Input, LSTM, Embedding, Concatenate, Dropout, Activation
 from keras.layers import Bidirectional, GlobalMaxPool1D, GlobalAveragePooling1D
+from keras.layers.normalization import BatchNormalization
 from keras.models import Model
 from keras.utils import multi_gpu_model
 
 
-window_length = 50 # The amount of words we look at per example. Experiment with this.
+window_length = 200 # The amount of words we look at per example. Experiment with this.
 
 #============================================
 #    LOAD DATA
@@ -153,14 +154,25 @@ input_shape = Input(shape=(window_length, n_features))
 #x = Concatenate(axis = 1)([x1,x2])
 #x = Dense(6, activation="sigmoid")(x)
 
-model = Sequential()
-#model.add(Bidirectional(LSTM(input_shape, return_sequences=True, dropout=0.2, recurrent_dropout=0.4)))
-model.add(LSTM(input_shape=input_shape, units=n_features, return_sequences=True, dropout=0.2, recurrent_dropout=0.4))
-model.add(Dense(6, activation="sigmoid"))
-#model = Model(inputs=input_shape, outputs=x)
+# Input 1
+input1 = Bidirectional(LSTM(units=n_features, return_sequences=True, dropout=0.2, recurrent_dropout=0.4))(input_shape)
+input1 = BatchNormalization()(input1)
+input1 = GlobalMaxPool1D()(input1)
+
+# Input 2
+input2 = Bidirectional(LSTM(units=n_features, return_sequences=True, dropout=0.2, recurrent_dropout=0.4))(input_shape)
+input2 = BatchNormalization()(input2)
+input2 = GlobalAveragePooling1D()(input2)
+
+# Merge both
+x = Concatenate(axis=1)([input1, input2])
+# Final dense layer
+x = Dense(6, activation="sigmoid")(x)
+model = Model(inputs=input_shape, outputs=x)    
 
 # Multi GPU model
-parallel_model = multi_gpu_model(model, gpus=2)
+parallel_model = model
+#parallel_model = multi_gpu_model(model, gpus=2)
 parallel_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 batch_size = 128
@@ -171,22 +183,21 @@ training_generator = data_generator(df_train, batch_size)
 parallel_model.fit_generator(
     training_generator,
     steps_per_epoch=training_steps_per_epoch,
-    batch_size=batch_size,
-    validation_data=(x_val, y_val)
+    validation_data=(x_val, y_val),
+    epochs=2
 )
 
 
 #============================================
 #    PREDICTION AND SUBMISSION
 #============================================
-y_test = parallel_model.predict([word_seq_test],batch_size=1024,verbose=1)
+x_test = df_to_data(test)
+y_test = test[classes].values
+y_test_output = parallel_model.predict(y_test,batch_size=1024,verbose=1)
 
 sample_submission = pd.read_csv(path + 'sample_submission.csv')
-sample_submission[label_names] = y_test
-sample_submission.to_csv('submission_LSTM_FFNN_02.csv', index=False)
-
-
-
+sample_submission[label_names] = y_test_output
+sample_submission.to_csv('submission_LSTM_FastText.csv', index=False)
 
 
 # import numpy as np
