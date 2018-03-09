@@ -1,4 +1,4 @@
-How to use the Attentionk Layer:
+How to use the Attention Layer:
 
 1. Put the attention_layers_keras.py under the same folder of your main python script
 2. Use "from attention_layers_keras import AttentionWeightedAverage" to import it
