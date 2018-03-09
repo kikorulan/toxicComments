@@ -1,1 +1,7 @@
+How to use the Attentionk Layer:
+
+1. Put the attention_layers_keras.py under the same folder of your main python script
+2. Use "from attention_layers_keras import AttentionWeightedAverage" to import it
+3. To call the Attention Layer just simply adds "AttentionWeightedAverage()" in the model (same as using max pooling layer)
+
 
